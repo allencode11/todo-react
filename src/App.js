@@ -8,7 +8,7 @@ function App() {
     {id: 3, completed: false, title: 'also random text'},
   ]
   return (
-    <div className='App'>
+    <div className='wrapper'>
      <h1>React tutorial</h1>
       <TodoList todos={todos} />
     </div>

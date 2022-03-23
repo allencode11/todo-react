@@ -1,4 +1,4 @@
-import TodoItem from './TodoItem';
+import TodoItem from './TodoItem/TodoItem';
 import PropTypes from 'prop-types';
 
 const styles = {

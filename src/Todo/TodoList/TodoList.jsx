@@ -1,13 +1,7 @@
-import TodoItem from './TodoItem/TodoItem';
+import TodoItem from '../TodoItem/TodoItem';
 import PropTypes from 'prop-types';
+import { styles } from './TodoList.styles'
 
-const styles = {
-  ul: {
-    listStyle: 'none',
-    margin: 0,
-    padding: 0,
-  }
-}
 const TodoList = (props) => {
   return (
     <ul style={styles.ul}>

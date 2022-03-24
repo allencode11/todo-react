@@ -1,9 +1,20 @@
-import { useState, useEffect } from 'react';
+import React from 'react';
+import { useState, useEffect, lazy } from 'react';
 import TodoList from './Todo/TodoList/TodoList';
 import AddTodo from './Todo/AddTodo/AddTodo';
 import Context from './context';
 import Loader from './Loader/Loader'
 import './App.css';
+import { Modal } from './Modal/Modal';
+
+// const AddTodo = lazy(
+// () =>
+//   new Promise(resolve => {
+//     setTimeout(() => {
+//       resolve(import('./Todo/AddTodo/AddTodo'))
+//     }, 3000)
+//   })
+// )
 
 function App() {
   const [todos, setTodos] = useState([]);
@@ -16,7 +27,7 @@ function App() {
         setTimeout(() => {
           setTodos(todos);
           setLoading(false);
-        }, 3000)
+        }, 2500)
 
       })
   },[])
@@ -51,9 +62,12 @@ function App() {
     <Context.Provider value={{ removeTodo }}>
       <div className='wrapper'>
         <h1>React tutorial</h1>
-        <AddTodo onCreate={addTodo}/>
+        <Modal />
         {
-          loading && <Loader />
+          loading ? <Loader /> :
+            <React.Suspense fallBack={<Loader />}>
+              <AddTodo onCreate={addTodo}/>
+            </React.Suspense>
         }
         {
           todos.length ?

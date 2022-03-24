@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState, useEffect, lazy } from 'react';
+import { useState, useEffect } from 'react';
 import TodoList from './Todo/TodoList/TodoList';
 import AddTodo from './Todo/AddTodo/AddTodo';
 import Context from './context';

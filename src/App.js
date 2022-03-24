@@ -1,17 +1,25 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import TodoList from './Todo/TodoList/TodoList';
 import AddTodo from './Todo/AddTodo/AddTodo';
 import Context from './context';
-
+import Loader from './Loader/Loader'
 import './App.css';
-import { element } from 'prop-types';
 
 function App() {
-  const [todos, setTodos] = useState([
-    {id: 1, completed: false, title: 'some random text'},
-    {id: 2, completed: false, title: 'another random text'},
-    {id: 3, completed: false, title: 'also random text'},
-  ]);
+  const [todos, setTodos] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch('https://jsonplaceholder.typicode.com/todos?_limit=10')
+      .then(response => response.json())
+      .then(todos => {
+        setTimeout(() => {
+          setTodos(todos);
+          setLoading(false);
+        }, 3000)
+
+      })
+  },[])
 
   const toggleTodo = (id) => {
     setTodos(todos.map( todo => {
@@ -45,9 +53,12 @@ function App() {
         <h1>React tutorial</h1>
         <AddTodo onCreate={addTodo}/>
         {
-          todos.length > 0 ?
+          loading && <Loader />
+        }
+        {
+          todos.length ?
             <TodoList todos={todos} onToggle={toggleTodo}/> :
-            <h3>No items</h3>
+            loading ? null : <h3>No items</h3>
 
         }
       </div>
